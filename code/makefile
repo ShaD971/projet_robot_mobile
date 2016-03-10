@@ -30,7 +30,7 @@
 # Example: Let's assume your main source file is "RP6Base_MyProgram.c", then
 # you would write: TARGET = RP6Base_MyProgram
 
-TARGET = RP6Base_Move_05
+TARGET = RP6Move
 
 ###############################################################################
 
