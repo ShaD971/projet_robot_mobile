@@ -9,6 +9,8 @@
 // Behaviour command type:
 
 #define IDLE  0
+#define TOTO 2
+
 
 // The behaviour command data type:
 typedef struct {
