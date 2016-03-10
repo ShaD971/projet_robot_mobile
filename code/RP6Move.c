@@ -30,7 +30,7 @@ behaviour_command_t STOP = {0, 0, FWD, false, false, 0, IDLE};
 /*****************************************************************************/
 // Cruise Behaviour:
 
-#define CRUISE_SPEED_FWD    40 // 100 Default speed when no obstacles are detected!
+#define CRUISE_SPEED_FWD    100 // 100 Default speed when no obstacles are detected!
 
 #define MOVE_FORWARDS 1
 behaviour_command_t cruise = {CRUISE_SPEED_FWD, CRUISE_SPEED_FWD, FWD, 
