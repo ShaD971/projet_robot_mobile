@@ -117,9 +117,10 @@ void behaviour_escape(void)
 					escape.move_value = 110;
 					bump_count = 0;
 				}
-				else
+				else{
 					escape.move_value = 80;
 				escape.state = ESCAPE_WAIT_END;
+			}
 			}
 		break;
 		case ESCAPE_RIGHT:	
@@ -170,7 +171,7 @@ void bumpersStateChanged(void)
 		if(escape.state != ESCAPE_FRONT_WAIT) 
 			escape.state = ESCAPE_LEFT;
 	}
-	else if(bumper_right) 			// bumper droit
+	else if(bumper_right) {			// bumper droit
 		if(escape.state != ESCAPE_FRONT_WAIT)
 			escape.state = ESCAPE_RIGHT;
 	}
