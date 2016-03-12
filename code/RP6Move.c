@@ -12,42 +12,34 @@
 #define TOTO 2
 
 
-// The behaviour command data type:
+// commande du robot:
 typedef struct {
-	uint8_t  speed_left;  // left speed (is used for rotation and 
-						  // move distance commands - if these commands are 
-						  // active, speed_right is ignored!)
-	uint8_t  speed_right; // right speed
+	uint8_t  speed_left;  //vitesse moteur gauche
+	uint8_t  speed_right; // vitesse moteur droit
 	unsigned dir:2;       // direction (FWD, BWD, LEFT, RIGHT)
 	unsigned move:1;      // move flag
 	unsigned rotate:1;    // rotate flag
-	uint16_t move_value;  // move value is used for distance and angle values
-	uint8_t  state;       // state of the behaviour
+	uint16_t move_value;  // la valeur de déplacement est utilisé pour les valeurs de distance et d'angle
+	uint8_t  state;       // état du comportement
 } behaviour_command_t;
 
 behaviour_command_t STOP = {0, 0, FWD, false, false, 0, IDLE};
 
 /*****************************************************************************/
-// Cruise Behaviour:
+// Comportement normal:
 
-#define CRUISE_SPEED_FWD    100 // 100 Default speed when no obstacles are detected!
+#define CRUISE_SPEED_FWD    100 // 100 la vitesse par défaut lorsque aucun obstacle sont détectés!
 
 #define MOVE_FORWARDS 1
 behaviour_command_t cruise = {CRUISE_SPEED_FWD, CRUISE_SPEED_FWD, FWD, 
 								false, false, 0, MOVE_FORWARDS};
-
-/**
- * We don't have anything to do here - this behaviour has only
- * a constant value for moving forwards - s. above!
- * Of course you can change this and add some random or timed movements 
- * in here...
- */
+//compotement normal
 void behaviour_cruise(void)
 {
 }
 
 /*****************************************************************************/
-// Escape Behaviour:
+// Comportement apres detection d'obstacle:
 
 #define ESCAPE_SPEED_BWD    40 // 100
 #define ESCAPE_SPEED_ROTATE 30  // 60
@@ -61,8 +53,9 @@ void behaviour_cruise(void)
 #define ESCAPE_WAIT_END		7
 behaviour_command_t escape = {0, 0, FWD, false, false, 0, IDLE}; 
 
+
 /**
- * This is the Escape behaviour for the Bumpers.
+ * Ceci est le comportement d'échappement pour les Bumpers.
  */
 void behaviour_escape(void)
 {
@@ -84,7 +77,7 @@ void behaviour_escape(void)
 			bump_count+=2;
 		break;
 		case ESCAPE_FRONT_WAIT:			
-			if(!escape.move) // Wait for movement to be completed
+			if(!escape.move) // Attend que le mouvement soit complet
 			{	
 				escape.speed_left = ESCAPE_SPEED_ROTATE;
 				if(bump_count > 3)
@@ -114,7 +107,7 @@ void behaviour_escape(void)
 			bump_count++;
 		break;
 		case ESCAPE_LEFT_WAIT:
-			if(!escape.move) // Wait for movement to be completed
+			if(!escape.move) // Attend que le mouvement soit complet
 			{
 				escape.speed_left = ESCAPE_SPEED_ROTATE;
 				escape.dir = RIGHT;
@@ -141,7 +134,7 @@ void behaviour_escape(void)
 			bump_count++;
 		break;
 		case ESCAPE_RIGHT_WAIT:
-			if(!escape.move) // Wait for movement to be completed
+			if(!escape.move) // Attend que le mouvement soit complet
 			{ 
 				escape.speed_left = ESCAPE_SPEED_ROTATE;		
 				escape.dir = LEFT;
@@ -157,7 +150,7 @@ void behaviour_escape(void)
 			}
 		break;
 		case ESCAPE_WAIT_END:
-			if(!(escape.move || escape.rotate)) // Wait for movement/rotation to be completed
+			if(!(escape.move || escape.rotate)) // Attend que le mouvement ou la rotation soit complet
 				escape.state = IDLE;
 		break;
 	}
@@ -168,33 +161,32 @@ void behaviour_escape(void)
  */
 void bumpersStateChanged(void)
 {
-	if(bumper_left && bumper_right) // Both Bumpers were hit
+	if(bumper_left && bumper_right) // Les deux bumper
 	{
 		escape.state = ESCAPE_FRONT;
 	}
-	else if(bumper_left)  			// Left Bumper was hit
+	else if(bumper_left)  			// bumper gauche
 	{
 		if(escape.state != ESCAPE_FRONT_WAIT) 
 			escape.state = ESCAPE_LEFT;
 	}
-	else if(bumper_right) 			// Right Bumper was hit
-	{
+	else if(bumper_right) 			// bumper droit
 		if(escape.state != ESCAPE_FRONT_WAIT)
 			escape.state = ESCAPE_RIGHT;
 	}
 }
 
 /*****************************************************************************/
-// The new Avoid Behaviour:
+// comportement avec infrarouge:
 
-// Some speed values for different movements:
+// Valeur de vitesse:
 #define AVOID_SPEED_L_ARC_LEFT  30
 #define AVOID_SPEED_L_ARC_RIGHT 40 // 90
 #define AVOID_SPEED_R_ARC_LEFT  40 // 90
 #define AVOID_SPEED_R_ARC_RIGHT 30
 #define AVOID_SPEED_ROTATE 	30     // 60
 
-// States for the Avoid FSM:
+// status du comportement:
 #define AVOID_OBSTACLE_RIGHT 		1
 #define AVOID_OBSTACLE_LEFT 		2
 #define AVOID_OBSTACLE_MIDDLE	    3
@@ -203,10 +195,7 @@ void bumpersStateChanged(void)
 behaviour_command_t avoid = {0, 0, FWD, false, false, 0, IDLE};
 
 /**
- * The new avoid behaviour. It uses the two ACS channels to avoid
- * collisions with obstacles. It drives arcs or rotates depending
- * on the sensor states and also behaves different after some
- * detecting cycles to avoid lock up situations. 
+ * comportement avec les infrarouges
  */
 void behaviour_avoid(void)
 {
@@ -215,14 +204,12 @@ void behaviour_avoid(void)
 	switch(avoid.state)
 	{
 		case IDLE: 
-		// This is different to the escape Behaviour where
-		// we used the Event Handler to detect sensor changes...
-		// Here we do this within the states!
-			if(obstacle_right && obstacle_left) // left AND right sensor have detected something...
+		
+			if(obstacle_right && obstacle_left) // capteur droit et gauche detecte
 				avoid.state = AVOID_OBSTACLE_MIDDLE;
-			else if(obstacle_left)  // Left "sensor" has detected something
+			else if(obstacle_left)  // capteur gauche detecte
 				avoid.state = AVOID_OBSTACLE_LEFT;
-			else if(obstacle_right) // Right "sensor" has detected something
+			else if(obstacle_right) // capteur droit detecte
 				avoid.state = AVOID_OBSTACLE_RIGHT;
 		break;
 		case AVOID_OBSTACLE_MIDDLE:
@@ -273,7 +260,7 @@ void behaviour_avoid(void)
 			obstacle_counter++;
 		break;
 		case AVOID_END:
-			if(getStopwatch4() > 1000) // We used timing based movement here!
+			if(getStopwatch4() > 1000) //
 			{
 				stopStopwatch4();
 				setStopwatch4(0);
@@ -284,10 +271,7 @@ void behaviour_avoid(void)
 }
 
 /**
- * ACS Event Handler - ONLY used for LED display! 
- * This does not affect the behaviour at all! 
- * The sensor checks are completely done in the Avoid behaviour
- * statemachine.
+ LED de controlle des capteur IR
  */
 void acsStateChanged(void)
 {
@@ -303,58 +287,48 @@ void acsStateChanged(void)
 }
 
 /*****************************************************************************/
-// Behaviour control:
+//  control et generation du mouvement:
 
-/**
- * This function processes the movement commands that the behaviours generate. 
- * Depending on the values in the behaviour_command_t struct, it sets motor
- * speed, moves a given distance or rotates.
- */
+
 void moveCommand(behaviour_command_t * cmd)
 {
-	if(cmd->move_value > 0)  // move or rotate?
+	if(cmd->move_value > 0)  // movement ou rotation?
 	{
 		if(cmd->rotate)
 			rotate(cmd->speed_left, cmd->dir, cmd->move_value, false); 
 		else if(cmd->move)
 			move(cmd->speed_left, cmd->dir, DIST_MM(cmd->move_value), false); 
-		cmd->move_value = 0; // clear move value - the move commands are only
-		                     // given once and then runs in background.
+		cmd->move_value = 0; 
 	}
-	else if(!(cmd->move || cmd->rotate)) // just move at speed? 
+	else if(!(cmd->move || cmd->rotate)) 
 	{
 		changeDirection(cmd->dir);
 		moveAtSpeed(cmd->speed_left,cmd->speed_right);
 	}
-	else if(isMovementComplete()) // movement complete? --> clear flags!
+	else if(isMovementComplete()) // movement complete? --> change flags!
 	{
 		cmd->rotate = false;
 		cmd->move = false;
 	}
 }
 
-/**
- * The behaviourController task controls the subsumption architechture. 
- * It implements the priority levels of the different behaviours. 
- */
+
 void behaviourController(void)
 {
-    // Call all the behaviour tasks:
+    // fonction behavior:
 	behaviour_cruise();
 	behaviour_avoid();
 	behaviour_escape();
 
-    // Execute the commands depending on priority levels:
-	if(escape.state != IDLE) // Highest priority - 3
+    // Execute les commande avec le valeur de priorité:
+	if(escape.state != IDLE) //  priorité - 3
 		moveCommand(&escape);
-	else if(avoid.state != IDLE) // Priority - 2
+	else if(avoid.state != IDLE) // Priorité - 2
 		moveCommand(&avoid);
-	else if(cruise.state != IDLE) // Priority - 1
+	else if(cruise.state != IDLE) // Priorité - 1
 		moveCommand(&cruise); 
-	else                     // Lowest priority - 0
-		moveCommand(&STOP);  // Default command - do nothing! 
-							 // In the current implementation this never 
-							 // happens.
+	else                     //  priorité - 0
+		moveCommand(&STOP);  
 }
 
 /*****************************************************************************/
@@ -367,16 +341,15 @@ int main(void)
 	mSleep(2500);
 	setLEDs(0b100100); 
 
-	// Set Bumpers state changed event handler:
+	// gestionnaire d'evenement bumper
 	BUMPERS_setStateChangedHandler(bumpersStateChanged);
 	
-	// Set ACS state changed event handler:
+	// gestionnaire d'evenement infrarouge
 	ACS_setStateChangedHandler(acsStateChanged);
 	
-	powerON(); // Turn on Encoders, Current sensing, ACS and Power LED.
+	powerON(); 
 	setACSPwrMed(); 
-	
-	// Main loop
+
 	while(true) 
 	{		
 		behaviourController();
