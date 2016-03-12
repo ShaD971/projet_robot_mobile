@@ -33,7 +33,7 @@ behaviour_command_t STOP = {0, 0, FWD, false, false, 0, IDLE};
 #define MOVE_FORWARDS 1
 behaviour_command_t cruise = {CRUISE_SPEED_FWD, CRUISE_SPEED_FWD, FWD, 
 								false, false, 0, MOVE_FORWARDS};
-//compotement normal
+//comportement normal
 void behaviour_cruise(void)
 {
 }
@@ -55,7 +55,7 @@ behaviour_command_t escape = {0, 0, FWD, false, false, 0, IDLE};
 
 
 /**
- * Ceci est le comportement d'échappement pour les Bumpers.
+ *  le comportement d'échappement pour les Bumpers.
  */
 void behaviour_escape(void)
 {
