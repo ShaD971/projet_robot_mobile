@@ -12,7 +12,7 @@
 #include "RP6ControlLib.h"       // The RP6 Control Library.
                         // Always needs to be included!
 
-//#include "RP6I2CmasterTWI.h"   // I2C Master Library
+#include "RP6I2CmasterTWI.h"   // I2C Master Library
 
 #include "main.h"
 
