@@ -28,6 +28,7 @@
 int main(void)
 {
    initRP6Control(); 
+
    initLCD();
    showScreenLCD("SRF05 afstands","meter");
    mSleep(1000);
@@ -60,7 +61,7 @@ return 0;
    // Afstandsmeting
 void startTimer(unsigned int time)
 {
-   OCR1A = time;         // Time set to count to
+   OCR1A = time;         // Minuteur(compte jusqu'a...)
    TIFR = 0x10;         // Clear timer campare match flag
    TCNT1 = 0x00;          // Clear timer to zero
    TCCR1B = START_CLK;      // Start timer running 1:8 prescaler
@@ -128,3 +129,40 @@ void displayData(unsigned int r);
 void setup(void);                  // General chip setup
 void startTimer(unsigned int time);      // Starts the timer running for a number of uS defined by value of time
 void waitForTimer(void);            // Waits for the timer to stop
+
+
+
+/*autre exemple***/
+// SRF05 connecté en mode un seul pin (émission/réception)
+
+int pinSRF = 7; //pin digital pour l'envoi et la réception des signaux
+int vSon=59; //valeur de temps en µs d'un aller retour du son sur 1cm
+void setup() {
+  Serial.begin(9600); //on initialise la communication série
+}
+//boucle principale
+void loop() {
+  int distance=mesureDistance(); //on récupère la valeur de distance grâce à la fonction créee plus bas
+  Serial.println(distance); // on affiche la distance en cm
+}
+
+//fonction de mesure de distance avec SRF05
+int mesureDistance() {
+  unsigned long mesure = 0; // variable de mesure
+  unsigned long cumul = 0; //variable pour la moyenne
+  for (int t = 0; t < 10; t++) { // boucle pour effectuer 10 mesures
+    pinMode (pinSRF, OUTPUT); //on prépare le pin pour envoyer le signal
+    digitalWrite(pinSRF, LOW); //on commence à l'état bas
+    delayMicroseconds(2); //on attend que le signal soit clair
+    digitalWrite(pinSRF, HIGH);//mise à l'état haut
+    delayMicroseconds(10); //pendant 10 µs
+    digitalWrite(pinSRF, LOW); //mise à l'état bas
+    pinMode(pinSRF, INPUT); //on prépare le pin pour recevoir un état
+    mesure = pulseIn(pinSRF, HIGH); // fonction pulseIn qui attend un état haut et renvoie le temps d'attente
+    cumul+=mesure; //on cumule les mesures
+    delay(50); //attente obligatoire entre deux mesures
+  }
+  mesure=cumul/10; //on calcule la moyenne des mesures
+  mesure=mesure/vSon;//on transforme en cm
+  return mesure; //on renvoie la mesure au programme principal
+}

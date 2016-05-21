@@ -3,11 +3,19 @@
 
 #include "RP6RobotBaseLib.h" 	
 #include "RP6I2CmasterTWI.h"
+#include "RP6ControlLib.h"       // The RP6 Control Library.
+                        // Always needs to be included!
+
 /*****************************************************************************/
 // Behaviour command type:
 
 #define IDLE  0
 #define TOTO 2
+
+//constante pour le sensor
+#define START_CLK   0x0A            // Start clock with 1:8 prescaler CTC mode
+#define START_CLK_N   0x02            // Start clock running 1:8 prescaler in normal mode
+#define STOP_CLK   0x08            // Stop clock
 
 
 // commande du robot:
@@ -21,7 +29,7 @@ typedef struct {
 	uint8_t  state;       // état du comportement
 } behaviour_command_t;
 
-behaviour_command_t STOP = {0, 0, FWD, false, false, 0, IDLE};
+behaviour_command_t STOP = {0, 0, FWD, false, false, 0, IDLE};//comande d'arret
 
 /*****************************************************************************/
 // Comportement normal:
@@ -318,6 +326,7 @@ void behaviourController(void)
 	behaviour_cruise();
 	behaviour_avoid();
 	behaviour_escape();
+	behavior_Ultrason();
 
     // Execute les commande avec le valeur de priorité:
 	if(escape.state != IDLE) //  priorité - 3
@@ -328,6 +337,23 @@ void behaviourController(void)
 		moveCommand(&cruise); 
 	else                     //  priorité - 0
 		moveCommand(&STOP);  
+}
+/***Utrason fonction*/
+
+// comportement avec ultrason:
+
+
+// status du comportement:
+#define AVOID_OBSTACLE2_RIGHT 		1
+#define AVOID_OBSTACLE2_LEFT 		2
+#define AVOID_OBSTACLE2_MIDDLE	    3
+#define AVOID_OBSTACLE2_MIDDLE_WAIT 	4
+#define AVOID_END2 					5
+behaviour_command_t ultrason = {0, 0, FWD, false, false, 0, IDLE};
+
+void ultrasonicMove(void){
+
+
 }
 
 /*****************************************************************************/
