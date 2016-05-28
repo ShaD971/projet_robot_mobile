@@ -340,9 +340,6 @@ void behaviourController(void)
 }
 /***Utrason fonction*/
 
-// comportement avec ultrason:
-
-
 // status du comportement:
 #define AVOID_OBSTACLE2_RIGHT 		1
 #define AVOID_OBSTACLE2_LEFT 		2
@@ -351,20 +348,166 @@ void behaviourController(void)
 #define AVOID_END2 					5
 behaviour_command_t ultrason = {0, 0, FWD, false, false, 0, IDLE};
 
-void ultrasonicMove(void){
+// comportement avec ultrason:
+   // Afstandsmeting
+void startTimer(unsigned int time)
+{
+   OCR1A = time;         // Minuteur(compte jusqu'a...)
+   TIFR = 0x10;         // Clear timer campare match flag
+   TCNT1 = 0x00;          // Clear timer to zero
+   TCCR1B = START_CLK;      // Start timer running 1:8 prescaler
+}
 
+void waitForTimer(void)
+{
+   while(!(TIFR&0x10));   // wait for timer to set compare match flag
+   TCCR1B = STOP_CLK;      // Stop the timer
+}
+
+
+void setup(void)
+{
+   DDRD=0x20;         // Port D pin 5 ouput triggerpin SRF05
+   TCCR1A = 0x00;         // Set timer up in CTC mode
+   TCCR1B = 0x08;   
+}
+
+ 
+void startRange(void)
+{
+   DDRD=0x20;               // make D5 output
+   PORTD = ( 1<<PORTD5 );      // Send trigger pin D5 high
+   startTimer(0x0007);         // Wait around 10uS before sending it low again
+   waitForTimer();
+   PORTD = ( 0<<PORTD5 );      // Send trigger pin D5 low
+}
+
+unsigned int getEcho(void)
+{
+uint8_t range;               
+   DDRD=0x00;               // Make pin D5 input
+   while(!(PIND&0x20));      // Wait for echo pin D5 to go high,  this indicates the start of the incoming pulse
+   TCNT1 = 0x00;             // Clear timer to zero
+   TCCR1B = START_CLK_N;      // Start timer running 1:8 prescaler in normal mode
+   while((PIND&0x20));      // Wait for echo pin D5 to go low signaling that the pulse has ended
+   TCCR1B = STOP_CLK;         // Stop the timer and set back to CTC mode   
+   range = TCNT1/116;         // Read back value in the timer counter register, this number divided by 116 will give us the range in CM
+   return(range);
+   
+}
+//etat du capteur d'ultrason
+void ultrasonStateChanged(void)
+{
+	if() // Les deux bumper
+	{
+		escape.state = ESCAPE_FRONT;
+	}
+	else if()  			// bumper gauche
+	{
+		if() 
+			escape.state = ESCAPE_LEFT;
+	}
+	else if() {			// bumper droit
+		if(escape.state != ESCAPE_FRONT_WAIT)
+			escape.state = ESCAPE_RIGHT;
+	}
+}
+
+
+
+void behavior_Ultrason(void){
+	static uint8_t last_obstacle = LEFT;
+	static uint8_t obstacle_counter = 0;
+	switch(avoid.state)
+	{
+		case IDLE: 
+		
+			if(obstacle_right && obstacle_left) // capteur droit et gauche detecte
+				avoid.state = AVOID_OBSTACLE_MIDDLE;
+			else if(obstacle_left)  // capteur gauche detecte
+				avoid.state = AVOID_OBSTACLE_LEFT;
+			else if(obstacle_right) // capteur droit detecte
+				avoid.state = AVOID_OBSTACLE_RIGHT;
+		break;
+		case AVOID_OBSTACLE_MIDDLE:
+			avoid.dir = last_obstacle;
+			avoid.speed_left = AVOID_SPEED_ROTATE;
+			avoid.speed_right = AVOID_SPEED_ROTATE;
+			if(!(obstacle_left || obstacle_right))
+			{
+				if(obstacle_counter > 3)
+				{
+					obstacle_counter = 0;
+					setStopwatch4(0);
+				}
+				else
+					setStopwatch4(400);
+				startStopwatch4();
+				avoid.state = AVOID_END;
+			}
+		break;
+		case AVOID_OBSTACLE_RIGHT:
+			avoid.dir = FWD;
+			avoid.speed_left = AVOID_SPEED_L_ARC_LEFT;
+			avoid.speed_right = AVOID_SPEED_L_ARC_RIGHT;
+			if(obstacle_right && obstacle_left)
+				avoid.state = AVOID_OBSTACLE_MIDDLE;
+			if(!obstacle_right)
+			{
+				setStopwatch4(500);
+				startStopwatch4();
+				avoid.state = AVOID_END;
+			}
+			last_obstacle = RIGHT;
+			obstacle_counter++;
+		break;
+		case AVOID_OBSTACLE_LEFT:
+			avoid.dir = FWD;
+			avoid.speed_left = AVOID_SPEED_R_ARC_LEFT;
+			avoid.speed_right = AVOID_SPEED_R_ARC_RIGHT;
+			if(obstacle_right && obstacle_left)
+				avoid.state = AVOID_OBSTACLE_MIDDLE;
+			if(!obstacle_left)
+			{
+				setStopwatch4(500); 
+				startStopwatch4();
+				avoid.state = AVOID_END;
+			}
+			last_obstacle = LEFT;
+			obstacle_counter++;
+		break;
+		case AVOID_END:
+			if(getStopwatch4() > 1000) //
+			{
+				stopStopwatch4();
+				setStopwatch4(0);
+				avoid.state = IDLE;
+			}
+		break;
+	}
 
 }
+
+
 
 /*****************************************************************************/
 // Main:
 
 int main(void)
 {
+	initRP6Control();
 	initRobotBase(); 
 	setLEDs(0b111111);
 	mSleep(2500);
 	setLEDs(0b100100); 
+
+    sound(100,40,64);//sons
+    sound(170,40,0);
+    setup();
+
+	//gestionnaire dévenement ultrasons
+	 ultrasonStateChanged();
+
 
 	// gestionnaire d'evenement bumper
 	BUMPERS_setStateChangedHandler(bumpersStateChanged);
