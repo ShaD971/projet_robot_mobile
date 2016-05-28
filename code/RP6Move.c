@@ -349,7 +349,6 @@ void behaviourController(void)
 behaviour_command_t ultrason = {0, 0, FWD, false, false, 0, IDLE};
 
 // comportement avec ultrason:
-   // Afstandsmeting
 void startTimer(unsigned int time)
 {
    OCR1A = time;         // Minuteur(compte jusqu'a...)
@@ -398,19 +397,11 @@ uint8_t range;
 //etat du capteur d'ultrason
 void ultrasonStateChanged(void)
 {
-	if() // Les deux bumper
+	if(getEcho()>0) // Les deux bumper
 	{
-		escape.state = ESCAPE_FRONT;
+		escape.state = AVOID_OBSTACLE_MIDDLE;
 	}
-	else if()  			// bumper gauche
-	{
-		if() 
-			escape.state = ESCAPE_LEFT;
-	}
-	else if() {			// bumper droit
-		if(escape.state != ESCAPE_FRONT_WAIT)
-			escape.state = ESCAPE_RIGHT;
-	}
+
 }
 
 
@@ -419,63 +410,29 @@ void behavior_Ultrason(void){
 	static uint8_t last_obstacle = LEFT;
 	static uint8_t obstacle_counter = 0;
 	switch(avoid.state)
+
 	{
 		case IDLE: 
 		
-			if(obstacle_right && obstacle_left) // capteur droit et gauche detecte
-				avoid.state = AVOID_OBSTACLE_MIDDLE;
-			else if(obstacle_left)  // capteur gauche detecte
-				avoid.state = AVOID_OBSTACLE_LEFT;
-			else if(obstacle_right) // capteur droit detecte
-				avoid.state = AVOID_OBSTACLE_RIGHT;
 		break;
 		case AVOID_OBSTACLE_MIDDLE:
 			avoid.dir = last_obstacle;
 			avoid.speed_left = AVOID_SPEED_ROTATE;
 			avoid.speed_right = AVOID_SPEED_ROTATE;
-			if(!(obstacle_left || obstacle_right))
-			{
+
 				if(obstacle_counter > 3)
 				{
 					obstacle_counter = 0;
 					setStopwatch4(0);
 				}
-				else
+				else{
 					setStopwatch4(400);
 				startStopwatch4();
 				avoid.state = AVOID_END;
 			}
+			
 		break;
-		case AVOID_OBSTACLE_RIGHT:
-			avoid.dir = FWD;
-			avoid.speed_left = AVOID_SPEED_L_ARC_LEFT;
-			avoid.speed_right = AVOID_SPEED_L_ARC_RIGHT;
-			if(obstacle_right && obstacle_left)
-				avoid.state = AVOID_OBSTACLE_MIDDLE;
-			if(!obstacle_right)
-			{
-				setStopwatch4(500);
-				startStopwatch4();
-				avoid.state = AVOID_END;
-			}
-			last_obstacle = RIGHT;
-			obstacle_counter++;
-		break;
-		case AVOID_OBSTACLE_LEFT:
-			avoid.dir = FWD;
-			avoid.speed_left = AVOID_SPEED_R_ARC_LEFT;
-			avoid.speed_right = AVOID_SPEED_R_ARC_RIGHT;
-			if(obstacle_right && obstacle_left)
-				avoid.state = AVOID_OBSTACLE_MIDDLE;
-			if(!obstacle_left)
-			{
-				setStopwatch4(500); 
-				startStopwatch4();
-				avoid.state = AVOID_END;
-			}
-			last_obstacle = LEFT;
-			obstacle_counter++;
-		break;
+		
 		case AVOID_END:
 			if(getStopwatch4() > 1000) //
 			{
