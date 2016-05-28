@@ -9,7 +9,7 @@
 /*****************************************************************************/
 // Behaviour command type:
 
-#define IDLE  0
+#define IDLE 0
 #define TOTO 2
 
 //constante pour le sensor
@@ -335,17 +335,27 @@ void behaviourController(void)
 		moveCommand(&avoid);
 	else if(cruise.state != IDLE) // Priorité - 1
 		moveCommand(&cruise); 
+	else if(ultrason.state!=IDLE)
+		moveCommand(&ultrason);
 	else                     //  priorité - 0
 		moveCommand(&STOP);  
 }
 /***Utrason fonction*/
 
+// Valeur de vitesse:
+#define ULTRASON_SPEED_L_ARC_LEFT  30
+#define ULTRASON_SPEED_L_ARC_RIGHT 40 // 90
+#define ULTRASON_SPEED_R_ARC_LEFT  40 // 90
+#define ULTRASON_SPEED_R_ARC_RIGHT 30
+#define ULTRASON_SPEED_ROTATE 	30     // 60
+
+
 // status du comportement:
-#define AVOID_OBSTACLE2_RIGHT 		1
-#define AVOID_OBSTACLE2_LEFT 		2
-#define AVOID_OBSTACLE2_MIDDLE	    3
-#define AVOID_OBSTACLE2_MIDDLE_WAIT 	4
-#define AVOID_END2 					5
+#define ULTRASON_OBSTACLE_RIGHT 		1
+#define ULTRASON_OBSTACLE_LEFT 		2
+#define ULTRASON_OBSTACLE_MIDDLE	    3
+#define ULTRASON_OBSTACLE_MIDDLE_WAIT 	4
+#define ULTRASON_END					5
 behaviour_command_t ultrason = {0, 0, FWD, false, false, 0, IDLE};
 
 // comportement avec ultrason:
@@ -399,41 +409,38 @@ void ultrasonStateChanged(void)
 {
 	if(getEcho()>0) // Les deux bumper
 	{
-		escape.state = AVOID_OBSTACLE_MIDDLE;
+		escape.state = ULTRASON_OBSTACLE_MIDDLE;
 	}
-
 }
-
 
 
 void behavior_Ultrason(void){
 	static uint8_t last_obstacle = LEFT;
 	static uint8_t obstacle_counter = 0;
 	switch(avoid.state)
-
 	{
 		case IDLE: 
 		
 		break;
-		case AVOID_OBSTACLE_MIDDLE:
-			avoid.dir = last_obstacle;
-			avoid.speed_left = AVOID_SPEED_ROTATE;
-			avoid.speed_right = AVOID_SPEED_ROTATE;
+		case ULTRASON_OBSTACLE_MIDDLE:
+			ultrason.dir = last_obstacle;
+			ultrason.speed_left = ULTRASON_SPEED_ROTATE;
+			ultrason.speed_right = ULTRASON_SPEED_ROTATE;
 
 				if(obstacle_counter > 3)
 				{
 					obstacle_counter = 0;
 					setStopwatch4(0);
 				}
-				else{
+				else
+				{
 					setStopwatch4(400);
-				startStopwatch4();
-				avoid.state = AVOID_END;
-			}
-			
+					startStopwatch4();
+					avoid.state = AVOID_END;
+				}
 		break;
 		
-		case AVOID_END:
+		case ULTRASON_END:
 			if(getStopwatch4() > 1000) //
 			{
 				stopStopwatch4();
@@ -463,7 +470,7 @@ int main(void)
     setup();
 
 	//gestionnaire dévenement ultrasons
-	 ultrasonStateChanged();
+	ultrasonStateChanged();
 
 
 	// gestionnaire d'evenement bumper
