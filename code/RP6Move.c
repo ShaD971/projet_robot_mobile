@@ -3,7 +3,7 @@
 
 #include "RP6RobotBaseLib.h" 	
 #include "RP6I2CmasterTWI.h"
-#include "RP6ControlLib.h"       // The RP6 Control Library.
+//#include "RP6ControlLib.h"       // The RP6 Control Library.
                         // Always needs to be included!
 
 /*****************************************************************************/
@@ -293,53 +293,7 @@ void acsStateChanged(void)
 	updateStatusLEDs();
 }
 
-/*****************************************************************************/
-//  control et generation du mouvement:
 
-
-void moveCommand(behaviour_command_t * cmd)
-{
-	if(cmd->move_value > 0)  // movement ou rotation?
-	{
-		if(cmd->rotate)
-			rotate(cmd->speed_left, cmd->dir, cmd->move_value, false); 
-		else if(cmd->move)
-			move(cmd->speed_left, cmd->dir, DIST_MM(cmd->move_value), false); 
-		cmd->move_value = 0; 
-	}
-	else if(!(cmd->move || cmd->rotate)) 
-	{
-		changeDirection(cmd->dir);
-		moveAtSpeed(cmd->speed_left,cmd->speed_right);
-	}
-	else if(isMovementComplete()) // movement complete? --> change flags!
-	{
-		cmd->rotate = false;
-		cmd->move = false;
-	}
-}
-
-
-void behaviourController(void)
-{
-    // fonction behavior:
-	behaviour_cruise();
-	behaviour_avoid();
-	behaviour_escape();
-	behavior_Ultrason();
-
-    // Execute les commande avec le valeur de priorité:
-	if(escape.state != IDLE) //  priorité - 3
-		moveCommand(&escape);
-	else if(avoid.state != IDLE) // Priorité - 2
-		moveCommand(&avoid);
-	else if(cruise.state != IDLE) // Priorité - 1
-		moveCommand(&cruise); 
-	else if(ultrason.state!=IDLE)
-		moveCommand(&ultrason);
-	else                     //  priorité - 0
-		moveCommand(&STOP);  
-}
 /***Utrason fonction*/
 
 // Valeur de vitesse:
@@ -452,21 +406,66 @@ void behavior_Ultrason(void){
 
 }
 
+/*****************************************************************************/
+//  control et generation du mouvement:
 
+
+void moveCommand(behaviour_command_t * cmd)
+{
+	if(cmd->move_value > 0)  // movement ou rotation?
+	{
+		if(cmd->rotate)
+			rotate(cmd->speed_left, cmd->dir, cmd->move_value, false); 
+		else if(cmd->move)
+			move(cmd->speed_left, cmd->dir, DIST_MM(cmd->move_value), false); 
+		cmd->move_value = 0; 
+	}
+	else if(!(cmd->move || cmd->rotate)) 
+	{
+		changeDirection(cmd->dir);
+		moveAtSpeed(cmd->speed_left,cmd->speed_right);
+	}
+	else if(isMovementComplete()) // movement complete? --> change flags!
+	{
+		cmd->rotate = false;
+		cmd->move = false;
+	}
+}
+
+
+void behaviourController(void)
+{
+    // fonction behavior:
+	behaviour_cruise();
+	behaviour_avoid();
+	behaviour_escape();
+	behavior_Ultrason();
+
+    // Execute les commande avec le valeur de priorité:
+	if(escape.state != IDLE) //  priorité - 3
+		moveCommand(&escape);
+	else if(avoid.state != IDLE) // Priorité - 2
+		moveCommand(&avoid);
+	else if(cruise.state != IDLE) // Priorité - 1
+		moveCommand(&cruise); 
+	else if(ultrason.state!=IDLE)
+		moveCommand(&ultrason);
+	else                     //  priorité - 0
+		moveCommand(&STOP);  
+}
 
 /*****************************************************************************/
 // Main:
 
 int main(void)
 {
-	initRP6Control();
+	//initRP6Control();
 	initRobotBase(); 
 	setLEDs(0b111111);
 	mSleep(2500);
 	setLEDs(0b100100); 
 
-    sound(100,40,64);//sons
-    sound(170,40,0);
+
     setup();
 
 	//gestionnaire dévenement ultrasons
