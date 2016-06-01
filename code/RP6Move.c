@@ -312,6 +312,31 @@ void acsStateChanged(void)
 #define ULTRASON_END					5
 behaviour_command_t ultrason = {0, 0, FWD, false, false, 0, IDLE};
 
+/*int trig = 12; 
+int echo = 11; 
+long lecture_echo; 
+long cm;
+
+void setup() 
+{ 
+  pinMode(trig, OUTPUT); 
+  digitalWrite(trig, LOW); 
+  pinMode(echo, INPUT); 
+  Serial.begin(9600); 
+}
+
+void loop() 
+{ 
+  digitalWrite(trig, HIGH); 
+  delayMicroseconds(10); 
+  digitalWrite(trig, LOW); 
+  lecture_echo = pulseIn(echo, HIGH); 
+  cm = lecture_echo / 58; 
+  Serial.print("Distancem : "); 
+  Serial.println(cm); 
+  delay(1000); 
+}
+*/
 // comportement avec ultrason:
 void startTimer(unsigned int time)
 {
@@ -371,7 +396,7 @@ void ultrasonStateChanged(void)
 void behavior_Ultrason(void){
 	static uint8_t last_obstacle = LEFT;
 	static uint8_t obstacle_counter = 0;
-	switch(avoid.state)
+	switch(ultrason.state)
 	{
 		case IDLE: 
 		
@@ -408,6 +433,7 @@ void behavior_Ultrason(void){
 
 /*****************************************************************************/
 //  control et generation du mouvement:
+
 
 
 void moveCommand(behaviour_command_t * cmd)
