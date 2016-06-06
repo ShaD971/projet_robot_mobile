@@ -396,7 +396,7 @@ void ultrasonStateChanged(void)
 void behavior_Ultrason(void){
 	static uint8_t last_obstacle = LEFT;
 	static uint8_t obstacle_counter = 0;
-	switch(ultrason.state)
+	switch(avoid.state)
 	{
 		case IDLE: 
 		
