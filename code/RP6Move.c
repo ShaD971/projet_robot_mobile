@@ -1,3 +1,14 @@
+/**
+ * \file RP6Move.c
+ * \brief Programme gestion d'obstacle robs RP6.
+ * \author Yaminiyekta Jaleh? Toleon kevin
+ * \version 0.1
+ * \date 9 juin 2016
+ *
+ * Programme d'evitement d'obstacles pour Robot RP6.
+ *
+ */
+
 /*****************************************************************************/
 // Includes:
 
@@ -12,21 +23,28 @@
 #define IDLE 0
 #define TOTO 2
 
-//constante pour le sensor
+//constante pour le sensor SRF05
 #define START_CLK   0x0A            // Start clock with 1:8 prescaler CTC mode
 #define START_CLK_N   0x02            // Start clock running 1:8 prescaler in normal mode
 #define STOP_CLK   0x08            // Stop clock
 
+/**
+ * \struct behaviour_command_t
+ * \brief Objet commande du robot.
+ *
+ *Behaviour_command_t est une structure
+ * qui regroupe les différentes valeur servant au mouvement du robot
+ * 
+ */
 
-// commande du robot:
 typedef struct {
-	uint8_t  speed_left;  //vitesse moteur gauche
-	uint8_t  speed_right; // vitesse moteur droit
-	unsigned dir:2;       // direction (FWD, BWD, LEFT, RIGHT)
-	unsigned move:1;      // move flag
-	unsigned rotate:1;    // rotate flag
-	uint16_t move_value;  // la valeur de déplacement est utilisé pour les valeurs de distance et d'angle
-	uint8_t  state;       // état du comportement
+	uint8_t  speed_left;  /*!< vitesse moteur gauche */
+	uint8_t  speed_right; /*!< vitesse moteur droit */
+	unsigned dir:2;       /*!< direction (FWD, BWD, LEFT, RIGHT) */
+	unsigned move:1;      /*!< move flag */
+	unsigned rotate:1;    /*!< rotate flag */
+	uint16_t move_value;  /*!< la valeur de déplacement est utilisé pour les valeurs de distance et d'angle */
+	uint8_t  state;       /*!< état du comportement */
 } behaviour_command_t;
 
 behaviour_command_t STOP = {0, 0, FWD, false, false, 0, IDLE};//comande d'arret
@@ -45,6 +63,14 @@ void behaviour_cruise(void)
 }
 
 /*****************************************************************************/
+/**
+ * \struct escape
+ * \brief Objet commande du robot.
+ *
+ * escape est une structure
+ * qui regroupe les différentes valeurs servant au mouvement du robot
+ * 
+ */ 
 // Comportement apres detection d'obstacle:
 
 #define ESCAPE_SPEED_BWD    40 // 100
@@ -62,6 +88,12 @@ behaviour_command_t escape = {0, 0, FWD, false, false, 0, IDLE};
 
 /**
  *  le comportement d'échappement pour les Bumpers.
+ */
+
+ /**
+ * \fn behaviour_escape(void)
+ * \brief Fonction comportement d'échappement pour les bumpers.
+ *en fonction du Bumper touché le robot choisit son comportement
  */
 void behaviour_escape(void)
 {
@@ -166,6 +198,11 @@ void behaviour_escape(void)
 /**
  * Bumpers Event handler
  */
+ /**
+ * \fn bumpersStateChanged(void)
+ * \brief commande d'échappement pour les bumpers. attribue une valeur à la variable de status de la structure escape.
+ *
+ */
 void bumpersStateChanged(void)
 {
 	if(bumper_left && bumper_right) // Les deux bumper
@@ -199,10 +236,23 @@ void bumpersStateChanged(void)
 #define AVOID_OBSTACLE_MIDDLE	    3
 #define AVOID_OBSTACLE_MIDDLE_WAIT 	4
 #define AVOID_END 					5
+/**
+ * \struct avoid
+ * \brief Objet commande du robot avec capteur IR.
+ *
+ * avoid est une structure
+ * qui regroupe les différentes valeur servant au mouvement du robot
+ * 
+ */
 behaviour_command_t avoid = {0, 0, FWD, false, false, 0, IDLE};
 
 /**
  * comportement avec les infrarouges
+ */
+  /**
+ * \fn behaviour_avoid(void)
+ * \brief Système d'anti-collision avec infrarouge. attribue une valeur à la variable de status de la structure avoid.
+ *
  */
 void behaviour_avoid(void)
 {
@@ -280,6 +330,10 @@ void behaviour_avoid(void)
 /**
  LED de controlle des capteur IR
  */
+   /**acsStateChanged(void)
+ * \brief LED de control des capteurs IR
+ *
+ */
 void acsStateChanged(void)
 {
 	if(obstacle_left && obstacle_right)
@@ -310,34 +364,28 @@ void acsStateChanged(void)
 #define ULTRASON_OBSTACLE_MIDDLE	    3
 #define ULTRASON_OBSTACLE_MIDDLE_WAIT 	4
 #define ULTRASON_END					5
+
+/**
+ * \struct ultrason
+ * \brief Objet commande du robot avec capteur ultrason.
+ *
+ * ultrason est une structure
+ * qui regroupe les différences valeur servant au mouvement du robot.
+ * 
+ */
 behaviour_command_t ultrason = {0, 0, FWD, false, false, 0, IDLE};
 
-/*int trig = 12; 
-int echo = 11; 
-long lecture_echo; 
-long cm;
 
-void setup() 
-{ 
-  pinMode(trig, OUTPUT); 
-  digitalWrite(trig, LOW); 
-  pinMode(echo, INPUT); 
-  Serial.begin(9600); 
-}
 
-void loop() 
-{ 
-  digitalWrite(trig, HIGH); 
-  delayMicroseconds(10); 
-  digitalWrite(trig, LOW); 
-  lecture_echo = pulseIn(echo, HIGH); 
-  cm = lecture_echo / 58; 
-  Serial.print("Distancem : "); 
-  Serial.println(cm); 
-  delay(1000); 
-}
-*/
 // comportement avec ultrason:
+/**
+ * \fn void startTimer(unsigned int time)
+ * \brief Fonction minuteur
+ *
+ * \param unsigned int time stocker la valeur de l'horloge.
+ * \return NULL.
+ */
+
 void startTimer(unsigned int time)
 {
    OCR1A = time;         // Minuteur(compte jusqu'a...)
@@ -345,22 +393,40 @@ void startTimer(unsigned int time)
    TCNT1 = 0x00;          // Clear timer to zero
    TCCR1B = START_CLK;      // Start timer running 1:8 prescaler
 }
-
+// comportement avec ultrason:
+/**
+ * \fn void waitForTimer(void)
+ * \brief Fonction stop minuteur
+ *
+ * \param void
+ * \return NULL.
+ */
 void waitForTimer(void)
 {
    while(!(TIFR&0x10));   // wait for timer to set compare match flag
    TCCR1B = STOP_CLK;      // Stop the timer
 }
+/**
+ * \fn setup()
+ * \brief Fonction initialise le capteur
+ *
+ * \param void
+ * \return NULL.
+ */
 
-
-void setup(void)
-{
+void setup(){
    DDRD=0x20;         // Port D pin 5 ouput triggerpin SRF05
    TCCR1A = 0x00;         // Set timer up in CTC mode
    TCCR1B = 0x08;   
 }
 
- 
+ /**
+ * \fn startRange(void)
+ * \brief Fonction qui active le capteur
+ *
+ * \param void
+ * \return NULL.
+ */
 void startRange(void)
 {
    DDRD=0x20;               // make D5 output
@@ -369,7 +435,13 @@ void startRange(void)
    waitForTimer();
    PORTD = ( 0<<PORTD5 );      // Send trigger pin D5 low
 }
-
+/**
+ * \fn int getEcho(void)
+ * \brief Fonction lecture du signal
+ *
+ * \param void
+ * \return la valeur du signal.
+ */
 unsigned int getEcho(void)
 {
 uint8_t range;               
@@ -379,53 +451,59 @@ uint8_t range;
    TCCR1B = START_CLK_N;      // Start timer running 1:8 prescaler in normal mode
    while((PIND&0x20));      // Wait for echo pin D5 to go low signaling that the pulse has ended
    TCCR1B = STOP_CLK;         // Stop the timer and set back to CTC mode   
-   range = TCNT1/116;         // Read back value in the timer counter register, this number divided by 116 will give us the range in CM
+   range = TCNT1/116;         // Read back value in the timer counter register, this number divided by 116 will give us the range in CM	
    return(range);
    
 }
+
 //etat du capteur d'ultrason
+/**
+ * \fn void ultrasonStateChanged(void)
+ * \brief Fonction lecture du signal
+ *
+ * \param void
+ * \return null
+ */
 void ultrasonStateChanged(void)
 {
-	if(getEcho()>0) // Les deux bumper
+	if(getEcho()>0) 
 	{
-		escape.state = ULTRASON_OBSTACLE_MIDDLE;
+		ultrason.state = ULTRASON_OBSTACLE_MIDDLE;
+				statusLEDs.byte = 0b000000;
+	statusLEDs.LED5 = obstacle_left;
+	statusLEDs.LED4 = (!obstacle_left);
+	statusLEDs.LED2 = obstacle_right;
+	statusLEDs.LED1 = (!obstacle_right);
+	updateStatusLEDs();
 	}
 }
-
+ /**
+ * \fn behavior_Ultrason(void)
+ * \brief Commande d'échappement pour le capteur ultrason. attribue dès valeur à la structure ultrason.
+ *
+ */
 
 void behavior_Ultrason(void){
-	static uint8_t last_obstacle = LEFT;
-	static uint8_t obstacle_counter = 0;
-	switch(avoid.state)
+	switch(ultrason.state)
 	{
-		case IDLE: 
-		
+		case IDLE: 			
+
+		if(getEcho()<0) // capteur droit et gauche detecte
+				ultrason.state = ULTRASON_OBSTACLE_MIDDLE;
+			
 		break;
 		case ULTRASON_OBSTACLE_MIDDLE:
-			ultrason.dir = last_obstacle;
-			ultrason.speed_left = ULTRASON_SPEED_ROTATE;
-			ultrason.speed_right = ULTRASON_SPEED_ROTATE;
-
-				if(obstacle_counter > 3)
-				{
-					obstacle_counter = 0;
-					setStopwatch4(0);
-				}
-				else
-				{
-					setStopwatch4(400);
-					startStopwatch4();
-					avoid.state = AVOID_END;
-				}
+			ultrason.dir = FWD;
+			ultrason.speed_left = ULTRASON_SPEED_L_ARC_LEFT;
+			ultrason.speed_right = ULTRASON_SPEED_L_ARC_RIGHT;
+			ultrason.state = ULTRASON_END;
+				
 		break;
 		
 		case ULTRASON_END:
-			if(getStopwatch4() > 1000) //
-			{
-				stopStopwatch4();
-				setStopwatch4(0);
-				avoid.state = IDLE;
-			}
+
+				ultrason.state = IDLE;
+			
 		break;
 	}
 
@@ -434,7 +512,11 @@ void behavior_Ultrason(void){
 /*****************************************************************************/
 //  control et generation du mouvement:
 
-
+ /**
+ * \fn moveCommand(behaviour_command_t * cmd)
+ * \brief Commande d'échappement pour le capteur ultrason. aAtribue des valeur à la structure ultrason.
+ *
+ */
 
 void moveCommand(behaviour_command_t * cmd)
 {
@@ -458,7 +540,11 @@ void moveCommand(behaviour_command_t * cmd)
 	}
 }
 
-
+ /**
+ * \fn void behaviourController(void)
+ * \brief commande control de movement
+ *
+ */
 void behaviourController(void)
 {
     // fonction behavior:
@@ -468,20 +554,26 @@ void behaviourController(void)
 	behavior_Ultrason();
 
     // Execute les commande avec le valeur de priorité:
-	if(escape.state != IDLE) //  priorité - 3
+    if(ultrason.state!=IDLE)    // priorité - 4
+		moveCommand(&ultrason);  
+	else if(escape.state != IDLE) //  priorité - 3
 		moveCommand(&escape);
 	else if(avoid.state != IDLE) // Priorité - 2
 		moveCommand(&avoid);
 	else if(cruise.state != IDLE) // Priorité - 1
 		moveCommand(&cruise); 
-	else if(ultrason.state!=IDLE)
-		moveCommand(&ultrason);
 	else                     //  priorité - 0
 		moveCommand(&STOP);  
 }
 
 /*****************************************************************************/
 // Main:
+/**
+ * \fn int main (void)
+ * \brief Entrée du programme.
+ *
+ * \return 0 - Arrêt normal du programme.
+ */
 
 int main(void)
 {
@@ -490,9 +582,11 @@ int main(void)
 	setLEDs(0b111111);
 	mSleep(2500);
 	setLEDs(0b100100); 
+	 unsigned int range; 
 
 
     setup();
+   
 
 	//gestionnaire dévenement ultrasons
 	ultrasonStateChanged();
@@ -509,6 +603,13 @@ int main(void)
 
 	while(true) 
 	{		
+		 startRange();         // Send a high on the trigger pin to start a ranging
+	      range = getEcho();      // Wait for the echo line to go high and then measure the length of this high
+	     // display(range);
+	      	mSleep(2500);
+	     startTimer(0xFFFF); 
+	     //delay(200);     // Delay before taking another ranging
+	     waitForTimer();
 		behaviourController();
 		task_RP6System();
 	}

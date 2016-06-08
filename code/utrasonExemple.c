@@ -166,3 +166,35 @@ int mesureDistance() {
   mesure=mesure/vSon;//on transforme en cm
   return mesure; //on renvoie la mesure au programme principal
 }
+/*
+#define trigPin 13
+#define echoPin 12
+#define ledVerte 11
+#define ledRouge 10
+
+int trig = 12; 
+int echo = 11; 
+long lecture_echo; 
+long cm;
+
+void setup() 
+{ 
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT); 
+  pinMode(ledVerte, OUTPUT); 
+  pinMode(ledRouge, OUTPUT); 
+  digitalWrite(trig, LOW); 
+  pinMode(echo, INPUT); 
+  Serial.begin(9600); 
+}
+
+void loop(){ 
+  digitalWrite(trig, HIGH); 
+  delayMicroseconds(10); 
+  digitalWrite(trig, LOW); 
+  lecture_echo = pulseIn(echo, HIGH); 
+  cm = lecture_echo / 58; 
+  Serial.print("Distancem : "); 
+  Serial.println(cm); 
+  delay(1000); 
+}*/

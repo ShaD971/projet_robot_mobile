@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>Systèmes Robotiques évitements d&#39;obstacles: Référence du fichier /home/shad/Dropbox/Cours-info/MasterMIME/Projet Tutoré/Robot/projet_robot_mobile/code/RP6Move.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="RP6mini.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Systèmes Robotiques évitements d&#39;obstacles
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&#160;de&#160;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Variables&#160;globale</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_7eb09e58583f359e753ec9733cdd3f32.html">Dropbox</a></li><li class="navelem"><a class="el" href="dir_c48610bde2d2f5c3bb13acbfacdcb8dc.html">Cours-info</a></li><li class="navelem"><a class="el" href="dir_868d34c2544e85defb39eda0d3a2e3d9.html">MasterMIME</a></li><li class="navelem"><a class="el" href="dir_7a2438d787c2f839a07b255c48c26eab.html">Projet Tutoré</a></li><li class="navelem"><a class="el" href="dir_61ef69259a473b0b3acd26d10ad75743.html">Robot</a></li><li class="navelem"><a class="el" href="dir_a2f361c568cccf18958040341c518492.html">projet_robot_mobile</a></li><li class="navelem"><a class="el" href="dir_a9d982bed519f826340164d37c9d2ffb.html">code</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier RP6Move.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Programme gestion d'obstacle robs RP6.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;RP6RobotBaseLib.h&quot;</code><br />
+<code>#include &quot;RP6I2CmasterTWI.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de RP6Move.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c__incl.png" border="0" usemap="#_2home_2shad_2_dropbox_2_cours-info_2_master_m_i_m_e_2_projet_01_tutor_xC3_xA9_2_robot_2projet__robot__mobile_2code_2_r_p6_move_8c" alt=""/></div>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Objet commande du robot.  <a href="structbehaviour__command__t.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a9c21a7caee326d7803b94ae1952b27ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c21a7caee326d7803b94ae1952b27ca"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IDLE</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a9c21a7caee326d7803b94ae1952b27ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3b95566e9c893d090e7da2e56b6588"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c3b95566e9c893d090e7da2e56b6588"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TOTO</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a9c3b95566e9c893d090e7da2e56b6588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a4055fe70c98da8dd2b4fe34c21767"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01a4055fe70c98da8dd2b4fe34c21767"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>START_CLK</b>&#160;&#160;&#160;0x0A</td></tr>
+<tr class="separator:a01a4055fe70c98da8dd2b4fe34c21767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a766f0b32b959a42d3a36ecb670eff23b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a766f0b32b959a42d3a36ecb670eff23b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>START_CLK_N</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="separator:a766f0b32b959a42d3a36ecb670eff23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d6193a0e7ae700c2476d534bf8ca31"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1d6193a0e7ae700c2476d534bf8ca31"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STOP_CLK</b>&#160;&#160;&#160;0x08</td></tr>
+<tr class="separator:ad1d6193a0e7ae700c2476d534bf8ca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51818b7b0d3474e74389495222f54f83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51818b7b0d3474e74389495222f54f83"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRUISE_SPEED_FWD</b>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:a51818b7b0d3474e74389495222f54f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb73a55f438491791289afd1fc21545d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb73a55f438491791289afd1fc21545d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MOVE_FORWARDS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:adb73a55f438491791289afd1fc21545d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a181cda6f53e1b771be49c31249d1d60b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a181cda6f53e1b771be49c31249d1d60b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_SPEED_BWD</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:a181cda6f53e1b771be49c31249d1d60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c79d686c6b326e75cb090bab91c2a5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c79d686c6b326e75cb090bab91c2a5e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_SPEED_ROTATE</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a8c79d686c6b326e75cb090bab91c2a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aaf04da30dff2834e7675ea76d95201"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9aaf04da30dff2834e7675ea76d95201"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_FRONT</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a9aaf04da30dff2834e7675ea76d95201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a706e7918ae3a9eb676278ea126c9be25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a706e7918ae3a9eb676278ea126c9be25"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_FRONT_WAIT</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a706e7918ae3a9eb676278ea126c9be25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c30eed961a6c5d42ef2cb492ce1d2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3c30eed961a6c5d42ef2cb492ce1d2a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_LEFT</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:ae3c30eed961a6c5d42ef2cb492ce1d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00b980bde7c9e37e7157e5a909a9f0e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00b980bde7c9e37e7157e5a909a9f0e2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_LEFT_WAIT</b>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a00b980bde7c9e37e7157e5a909a9f0e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3ceff4b53a60dd8bdac68ac1254e70a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3ceff4b53a60dd8bdac68ac1254e70a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_RIGHT</b>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:ab3ceff4b53a60dd8bdac68ac1254e70a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409a70e1a4707c8564204d2b38dec25a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a409a70e1a4707c8564204d2b38dec25a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_RIGHT_WAIT</b>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:a409a70e1a4707c8564204d2b38dec25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7528762f37687c108368e7e8d3fb3fc2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7528762f37687c108368e7e8d3fb3fc2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ESCAPE_WAIT_END</b>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:a7528762f37687c108368e7e8d3fb3fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d94fb7b25c187a7022dbcf24c9f15e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5d94fb7b25c187a7022dbcf24c9f15e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_SPEED_L_ARC_LEFT</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:ac5d94fb7b25c187a7022dbcf24c9f15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfc35910738caabf3198168f36ef7556"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adfc35910738caabf3198168f36ef7556"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_SPEED_L_ARC_RIGHT</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:adfc35910738caabf3198168f36ef7556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa39c0825c9916b9285a5eff03e87fe9c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa39c0825c9916b9285a5eff03e87fe9c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_SPEED_R_ARC_LEFT</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:aa39c0825c9916b9285a5eff03e87fe9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a265d950a98f4435b9b0f8cd078597d55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a265d950a98f4435b9b0f8cd078597d55"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_SPEED_R_ARC_RIGHT</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a265d950a98f4435b9b0f8cd078597d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a471cc37a02df3af631cd67f5fa4fc99b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a471cc37a02df3af631cd67f5fa4fc99b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_SPEED_ROTATE</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a471cc37a02df3af631cd67f5fa4fc99b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61963a010dfa81273992cc699accfe7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61963a010dfa81273992cc699accfe7d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_OBSTACLE_RIGHT</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a61963a010dfa81273992cc699accfe7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f163da87b05228d110a9462f5cbe02b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f163da87b05228d110a9462f5cbe02b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_OBSTACLE_LEFT</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a7f163da87b05228d110a9462f5cbe02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08fa7206d7fc78d639f574d4ba2add3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08fa7206d7fc78d639f574d4ba2add3a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_OBSTACLE_MIDDLE</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a08fa7206d7fc78d639f574d4ba2add3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6775403f801c634b6ab23f3fba32dbac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6775403f801c634b6ab23f3fba32dbac"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_OBSTACLE_MIDDLE_WAIT</b>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a6775403f801c634b6ab23f3fba32dbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ca33fc01c451c720ed2980d7860f91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7ca33fc01c451c720ed2980d7860f91"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AVOID_END</b>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:af7ca33fc01c451c720ed2980d7860f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a410d6885ba78a26456f0dec1bb504862"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a410d6885ba78a26456f0dec1bb504862"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_SPEED_L_ARC_LEFT</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a410d6885ba78a26456f0dec1bb504862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae77ae9eb2f935d6050c93b3389bc0ed0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae77ae9eb2f935d6050c93b3389bc0ed0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_SPEED_L_ARC_RIGHT</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:ae77ae9eb2f935d6050c93b3389bc0ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d031ee484c3c8f68a86b0cf1433c98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9d031ee484c3c8f68a86b0cf1433c98"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_SPEED_R_ARC_LEFT</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:ac9d031ee484c3c8f68a86b0cf1433c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4db06b4dbac718491306425a17ff77f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4db06b4dbac718491306425a17ff77f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_SPEED_R_ARC_RIGHT</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:ac4db06b4dbac718491306425a17ff77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eff5d24bdcc356aca826e865dcd5670"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4eff5d24bdcc356aca826e865dcd5670"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_SPEED_ROTATE</b>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a4eff5d24bdcc356aca826e865dcd5670"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366b1a4ae3c49aefb1646e563610f7e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a366b1a4ae3c49aefb1646e563610f7e6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_OBSTACLE_RIGHT</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a366b1a4ae3c49aefb1646e563610f7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82e659b2be8fd97fb4891619221bcc69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82e659b2be8fd97fb4891619221bcc69"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_OBSTACLE_LEFT</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a82e659b2be8fd97fb4891619221bcc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1acde1b36741735625b6099d306c5617"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1acde1b36741735625b6099d306c5617"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_OBSTACLE_MIDDLE</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a1acde1b36741735625b6099d306c5617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b207a77f3f6cada8944e68aa9d209d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9b207a77f3f6cada8944e68aa9d209d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_OBSTACLE_MIDDLE_WAIT</b>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:ae9b207a77f3f6cada8944e68aa9d209d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2004cbd36d6e771e5332444364df031"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab2004cbd36d6e771e5332444364df031"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ULTRASON_END</b>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:ab2004cbd36d6e771e5332444364df031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a1b704e124976cb368858a59a1b8890aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b704e124976cb368858a59a1b8890aa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>behaviour_cruise</b> (void)</td></tr>
+<tr class="separator:a1b704e124976cb368858a59a1b8890aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade3bb0a28e12b6dbe1275c2ac19b721a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#ade3bb0a28e12b6dbe1275c2ac19b721a">behaviour_escape</a> (void)</td></tr>
+<tr class="memdesc:ade3bb0a28e12b6dbe1275c2ac19b721a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction comportement d'échappement pour les bumpers. en fonction du Bumper touché le robot choisit son comportement.  <a href="#ade3bb0a28e12b6dbe1275c2ac19b721a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ade3bb0a28e12b6dbe1275c2ac19b721a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3116d63bff07b3bc7c73deda1b47eaee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a3116d63bff07b3bc7c73deda1b47eaee">bumpersStateChanged</a> (void)</td></tr>
+<tr class="memdesc:a3116d63bff07b3bc7c73deda1b47eaee"><td class="mdescLeft">&#160;</td><td class="mdescRight">commande d'échappement pour les bumpers. attribue une valeur à la variable de status de la structure escape.  <a href="#a3116d63bff07b3bc7c73deda1b47eaee">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3116d63bff07b3bc7c73deda1b47eaee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95e7fae6b3c22080864b6e8c5d161afb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a95e7fae6b3c22080864b6e8c5d161afb">behaviour_avoid</a> (void)</td></tr>
+<tr class="memdesc:a95e7fae6b3c22080864b6e8c5d161afb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Système d'anti-collision avec infrarouge. attribue une valeur à la variable de status de la structure avoid.  <a href="#a95e7fae6b3c22080864b6e8c5d161afb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a95e7fae6b3c22080864b6e8c5d161afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76eec3d25e9613c2be8210363fa6d30b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a76eec3d25e9613c2be8210363fa6d30b">acsStateChanged</a> (void)</td></tr>
+<tr class="memdesc:a76eec3d25e9613c2be8210363fa6d30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">LED de control des capteurs IR.  <a href="#a76eec3d25e9613c2be8210363fa6d30b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a76eec3d25e9613c2be8210363fa6d30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc2f3b4e4230032e31750daf026581c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#afc2f3b4e4230032e31750daf026581c8">startTimer</a> (unsigned int time)</td></tr>
+<tr class="memdesc:afc2f3b4e4230032e31750daf026581c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction minuteur.  <a href="#afc2f3b4e4230032e31750daf026581c8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afc2f3b4e4230032e31750daf026581c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a701bed06dc4caa1a99c40c64b7ebef8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a701bed06dc4caa1a99c40c64b7ebef8d">waitForTimer</a> (void)</td></tr>
+<tr class="memdesc:a701bed06dc4caa1a99c40c64b7ebef8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction stop minuteur.  <a href="#a701bed06dc4caa1a99c40c64b7ebef8d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a701bed06dc4caa1a99c40c64b7ebef8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
+<tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction initialise le capteur.  <a href="#a4fc01d736fe50cf5b977f755b675f11d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50228842aa34bb1619e3b377839b6d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#ac50228842aa34bb1619e3b377839b6d1">startRange</a> (void)</td></tr>
+<tr class="memdesc:ac50228842aa34bb1619e3b377839b6d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui active le capteur.  <a href="#ac50228842aa34bb1619e3b377839b6d1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac50228842aa34bb1619e3b377839b6d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c5bc6bf4f9b7f03a4cab056525eebcd"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a0c5bc6bf4f9b7f03a4cab056525eebcd">getEcho</a> (void)</td></tr>
+<tr class="memdesc:a0c5bc6bf4f9b7f03a4cab056525eebcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction lecture du signal.  <a href="#a0c5bc6bf4f9b7f03a4cab056525eebcd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0c5bc6bf4f9b7f03a4cab056525eebcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640732c9bd00dd6584ba765671de49af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a640732c9bd00dd6584ba765671de49af">ultrasonStateChanged</a> (void)</td></tr>
+<tr class="memdesc:a640732c9bd00dd6584ba765671de49af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction lecture du signal.  <a href="#a640732c9bd00dd6584ba765671de49af">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a640732c9bd00dd6584ba765671de49af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4920850db0a2f5b690893db76101bca4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4920850db0a2f5b690893db76101bca4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a4920850db0a2f5b690893db76101bca4">behavior_Ultrason</a> (void)</td></tr>
+<tr class="memdesc:a4920850db0a2f5b690893db76101bca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commande d'échappement pour le capteur ultrason. attribue dès valeur à la structure ultrason. <br /></td></tr>
+<tr class="separator:a4920850db0a2f5b690893db76101bca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b2b0e5c3dd40ffb40196a015ba54845"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b2b0e5c3dd40ffb40196a015ba54845"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a6b2b0e5c3dd40ffb40196a015ba54845">moveCommand</a> (<a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a> *cmd)</td></tr>
+<tr class="memdesc:a6b2b0e5c3dd40ffb40196a015ba54845"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commande d'échappement pour le capteur ultrason. aAtribue des valeur à la structure ultrason. <br /></td></tr>
+<tr class="separator:a6b2b0e5c3dd40ffb40196a015ba54845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa574fe74f36cc360e6ac84b9e97906c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa574fe74f36cc360e6ac84b9e97906c6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#aa574fe74f36cc360e6ac84b9e97906c6">behaviourController</a> (void)</td></tr>
+<tr class="memdesc:aa574fe74f36cc360e6ac84b9e97906c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">commande control de movement <br /></td></tr>
+<tr class="separator:aa574fe74f36cc360e6ac84b9e97906c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrée du programme.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a11a1c4eb91d6666d076e912159c42bcf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11a1c4eb91d6666d076e912159c42bcf"></a>
+<a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>STOP</b> = {0, 0, FWD, false, false, 0, IDLE}</td></tr>
+<tr class="separator:a11a1c4eb91d6666d076e912159c42bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab53550bba3054cc61038ca5491452cec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>cruise</b></td></tr>
+<tr class="separator:ab53550bba3054cc61038ca5491452cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b9119ff79b94dae9336c9e84f6fcdab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b9119ff79b94dae9336c9e84f6fcdab"></a>
+<a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>escape</b> = {0, 0, FWD, false, false, 0, IDLE}</td></tr>
+<tr class="separator:a3b9119ff79b94dae9336c9e84f6fcdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83aab701b0dc6b48d35623ddeff11245"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83aab701b0dc6b48d35623ddeff11245"></a>
+<a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>avoid</b> = {0, 0, FWD, false, false, 0, IDLE}</td></tr>
+<tr class="separator:a83aab701b0dc6b48d35623ddeff11245"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab870d26638d30e6e114087a528161ba8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab870d26638d30e6e114087a528161ba8"></a>
+<a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ultrason</b> = {0, 0, FWD, false, false, 0, IDLE}</td></tr>
+<tr class="separator:ab870d26638d30e6e114087a528161ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Programme gestion d'obstacle robs RP6. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Yaminiyekta Jaleh? Toleon kevin </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>9 juin 2016</dd></dl>
+<p>Programme d'evitement d'obstacles pour Robot RP6. </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a class="anchor" id="a76eec3d25e9613c2be8210363fa6d30b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void acsStateChanged </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LED de control des capteurs IR. </p>
+<p>LED de controlle des capteur IR <a class="el" href="_r_p6_move_8c.html#a76eec3d25e9613c2be8210363fa6d30b" title="LED de control des capteurs IR. ">acsStateChanged(void)</a> </p>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a76eec3d25e9613c2be8210363fa6d30b_icgraph.png" border="0" usemap="#_r_p6_move_8c_a76eec3d25e9613c2be8210363fa6d30b_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a76eec3d25e9613c2be8210363fa6d30b_icgraph" id="_r_p6_move_8c_a76eec3d25e9613c2be8210363fa6d30b_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="180,5,231,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a95e7fae6b3c22080864b6e8c5d161afb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">behaviour_avoid </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Système d'anti-collision avec infrarouge. attribue une valeur à la variable de status de la structure avoid. </p>
+<p>comportement avec les infrarouges </p>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a95e7fae6b3c22080864b6e8c5d161afb_icgraph.png" border="0" usemap="#_r_p6_move_8c_a95e7fae6b3c22080864b6e8c5d161afb_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a95e7fae6b3c22080864b6e8c5d161afb_icgraph" id="_r_p6_move_8c_a95e7fae6b3c22080864b6e8c5d161afb_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#aa574fe74f36cc360e6ac84b9e97906c6" title="commande control de movement " alt="" coords="169,5,304,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="352,5,403,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ade3bb0a28e12b6dbe1275c2ac19b721a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">behaviour_escape </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction comportement d'échappement pour les bumpers. en fonction du Bumper touché le robot choisit son comportement. </p>
+<p>le comportement d'échappement pour les Bumpers. </p>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_ade3bb0a28e12b6dbe1275c2ac19b721a_icgraph.png" border="0" usemap="#_r_p6_move_8c_ade3bb0a28e12b6dbe1275c2ac19b721a_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_ade3bb0a28e12b6dbe1275c2ac19b721a_icgraph" id="_r_p6_move_8c_ade3bb0a28e12b6dbe1275c2ac19b721a_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#aa574fe74f36cc360e6ac84b9e97906c6" title="commande control de movement " alt="" coords="180,5,315,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="363,5,413,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a3116d63bff07b3bc7c73deda1b47eaee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bumpersStateChanged </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>commande d'échappement pour les bumpers. attribue une valeur à la variable de status de la structure escape. </p>
+<p>Bumpers Event handler </p>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a3116d63bff07b3bc7c73deda1b47eaee_icgraph.png" border="0" usemap="#_r_p6_move_8c_a3116d63bff07b3bc7c73deda1b47eaee_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a3116d63bff07b3bc7c73deda1b47eaee_icgraph" id="_r_p6_move_8c_a3116d63bff07b3bc7c73deda1b47eaee_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="208,5,259,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a0c5bc6bf4f9b7f03a4cab056525eebcd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int getEcho </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction lecture du signal. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>la valeur du signal. </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a0c5bc6bf4f9b7f03a4cab056525eebcd_icgraph.png" border="0" usemap="#_r_p6_move_8c_a0c5bc6bf4f9b7f03a4cab056525eebcd_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a0c5bc6bf4f9b7f03a4cab056525eebcd_icgraph" id="_r_p6_move_8c_a0c5bc6bf4f9b7f03a4cab056525eebcd_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a640732c9bd00dd6584ba765671de49af" title="Fonction lecture du signal. " alt="" coords="299,5,449,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="497,56,548,83"/>
+<area shape="rect" id="node4" href="_r_p6_move_8c.html#a4920850db0a2f5b690893db76101bca4" title="Commande d&#39;échappement pour le capteur ultrason. attribue dès valeur à la structure ultrason..." alt="" coords="124,107,251,133"/>
+<area shape="rect" id="node5" href="_r_p6_move_8c.html#aa574fe74f36cc360e6ac84b9e97906c6" title="commande control de movement " alt="" coords="307,107,441,133"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entrée du programme. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>0 - Arrêt normal du programme. </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe d'appel pour cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph.png" border="0" usemap="#_r_p6_move_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph" id="_r_p6_move_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a4fc01d736fe50cf5b977f755b675f11d" title="Fonction initialise le capteur. " alt="" coords="154,5,209,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a640732c9bd00dd6584ba765671de49af" title="Fonction lecture du signal. " alt="" coords="106,56,257,83"/>
+<area shape="rect" id="node4" href="_r_p6_move_8c.html#a0c5bc6bf4f9b7f03a4cab056525eebcd" title="Fonction lecture du signal. " alt="" coords="481,107,552,133"/>
+<area shape="rect" id="node5" href="_r_p6_move_8c.html#a3116d63bff07b3bc7c73deda1b47eaee" title="commande d&#39;échappement pour les bumpers. attribue une valeur à la variable de status de la structure ..." alt="" coords="104,157,259,184"/>
+<area shape="rect" id="node6" href="_r_p6_move_8c.html#a76eec3d25e9613c2be8210363fa6d30b" title="LED de control des capteurs IR. " alt="" coords="118,208,245,235"/>
+<area shape="rect" id="node7" href="_r_p6_move_8c.html#ac50228842aa34bb1619e3b377839b6d1" title="Fonction qui active le capteur. " alt="" coords="138,309,225,336"/>
+<area shape="rect" id="node8" href="_r_p6_move_8c.html#afc2f3b4e4230032e31750daf026581c8" title="Fonction minuteur. " alt="" coords="329,259,411,285"/>
+<area shape="rect" id="node9" href="_r_p6_move_8c.html#a701bed06dc4caa1a99c40c64b7ebef8d" title="Fonction stop minuteur. " alt="" coords="321,309,419,336"/>
+<area shape="rect" id="node10" href="_r_p6_move_8c.html#aa574fe74f36cc360e6ac84b9e97906c6" title="commande control de movement " alt="" coords="114,411,249,437"/>
+<area shape="rect" id="node11" href="_r_p6_move_8c.html#a95e7fae6b3c22080864b6e8c5d161afb" title="Système d&#39;anti&#45;collision avec infrarouge. attribue une valeur à la variable de status de la structure..." alt="" coords="312,360,428,387"/>
+<area shape="rect" id="node12" href="_r_p6_move_8c.html#ade3bb0a28e12b6dbe1275c2ac19b721a" title="Fonction comportement d&#39;échappement pour les bumpers. en fonction du Bumper touché le robot choisit s..." alt="" coords="307,411,433,437"/>
+<area shape="rect" id="node13" href="_r_p6_move_8c.html#a4920850db0a2f5b690893db76101bca4" title="Commande d&#39;échappement pour le capteur ultrason. attribue dès valeur à la structure ultrason..." alt="" coords="307,461,433,488"/>
+<area shape="rect" id="node14" href="_r_p6_move_8c.html#a6b2b0e5c3dd40ffb40196a015ba54845" title="Commande d&#39;échappement pour le capteur ultrason. aAtribue des valeur à la structure ultrason..." alt="" coords="313,512,427,539"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a4fc01d736fe50cf5b977f755b675f11d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setup </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction initialise le capteur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>NULL. </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a4fc01d736fe50cf5b977f755b675f11d_icgraph.png" border="0" usemap="#_r_p6_move_8c_a4fc01d736fe50cf5b977f755b675f11d_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a4fc01d736fe50cf5b977f755b675f11d_icgraph" id="_r_p6_move_8c_a4fc01d736fe50cf5b977f755b675f11d_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="108,5,159,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ac50228842aa34bb1619e3b377839b6d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void startRange </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction qui active le capteur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>NULL. </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe d'appel pour cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_cgraph.png" border="0" usemap="#_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_cgraph" alt=""/></div>
+<map name="_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_cgraph" id="_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_cgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#afc2f3b4e4230032e31750daf026581c8" title="Fonction minuteur. " alt="" coords="149,5,230,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a701bed06dc4caa1a99c40c64b7ebef8d" title="Fonction stop minuteur. " alt="" coords="140,56,239,83"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_icgraph.png" border="0" usemap="#_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_icgraph" id="_r_p6_move_8c_ac50228842aa34bb1619e3b377839b6d1_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="140,5,191,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="afc2f3b4e4230032e31750daf026581c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void startTimer </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction minuteur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">unsigned</td><td>int time stocker la valeur de l'horloge. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>NULL. </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_afc2f3b4e4230032e31750daf026581c8_icgraph.png" border="0" usemap="#_r_p6_move_8c_afc2f3b4e4230032e31750daf026581c8_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_afc2f3b4e4230032e31750daf026581c8_icgraph" id="_r_p6_move_8c_afc2f3b4e4230032e31750daf026581c8_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#ac50228842aa34bb1619e3b377839b6d1" title="Fonction qui active le capteur. " alt="" coords="135,5,221,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="269,31,320,57"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a640732c9bd00dd6584ba765671de49af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ultrasonStateChanged </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction lecture du signal. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>null </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe d'appel pour cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_cgraph.png" border="0" usemap="#_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_cgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_cgraph" id="_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_cgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a0c5bc6bf4f9b7f03a4cab056525eebcd" title="Fonction lecture du signal. " alt="" coords="204,5,275,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_icgraph.png" border="0" usemap="#_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_icgraph" id="_r_p6_move_8c_a640732c9bd00dd6584ba765671de49af_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="204,5,255,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a701bed06dc4caa1a99c40c64b7ebef8d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void waitForTimer </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction stop minuteur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>NULL. </dd></dl>
+
+<p><div class="dynheader">
+Voici le graphe des appelants de cette fonction :</div>
+<div class="dyncontent">
+<div class="center"><img src="_r_p6_move_8c_a701bed06dc4caa1a99c40c64b7ebef8d_icgraph.png" border="0" usemap="#_r_p6_move_8c_a701bed06dc4caa1a99c40c64b7ebef8d_icgraph" alt=""/></div>
+<map name="_r_p6_move_8c_a701bed06dc4caa1a99c40c64b7ebef8d_icgraph" id="_r_p6_move_8c_a701bed06dc4caa1a99c40c64b7ebef8d_icgraph">
+<area shape="rect" id="node2" href="_r_p6_move_8c.html#ac50228842aa34bb1619e3b377839b6d1" title="Fonction qui active le capteur. " alt="" coords="152,5,239,32"/>
+<area shape="rect" id="node3" href="_r_p6_move_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="Entrée du programme. " alt="" coords="287,31,337,57"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a class="anchor" id="ab53550bba3054cc61038ca5491452cec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbehaviour__command__t.html">behaviour_command_t</a> cruise</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Valeur initiale :</b><div class="fragment"><div class="line">= {CRUISE_SPEED_FWD, CRUISE_SPEED_FWD, FWD, </div><div class="line">                                <span class="keyword">false</span>, <span class="keyword">false</span>, 0, MOVE_FORWARDS}</div></div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>
